@@ -175,6 +175,7 @@ export default {
       perPage: 3,
       currentPage: 1,
       isUpdateProcessDone: false,
+      filteredList: [],
     };
   },
 
@@ -197,11 +198,11 @@ export default {
           await this.getAllContacts();
           this.filteredList = await this.contacts;
           setTimeout(() => {
-            this.itemType = "favoriteContacts";
-          }, 5);
+            this.filteredList = this.favoriteContacts;
+          }, 10);
           setTimeout(() => {
-            this.itemType = "contacts";
-          }, 5);
+            this.filteredList = this.contacts;
+          }, 10);
         }
       },
     },
@@ -222,19 +223,6 @@ export default {
 
   computed: {
     ...mapState("phonebook", ["contacts", "favoriteContacts"]),
-    filteredList: {
-      // getter
-      get: function () {
-        if (this.itemType == "contacts") {
-          return this.contacts;
-        } else {
-          return this.favoriteContacts;
-        }
-      },
-      // setter
-      // For solving Computed property "filteredList" was assigned to but it has no setter.
-      set: function () {},
-    },
   },
 
   methods: {
